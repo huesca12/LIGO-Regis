@@ -31,7 +31,7 @@ def simplify_csv(csv_in: str, n: int, csv_out: str = "csv_out.csv", save_to_file
             new_rows = glitch_rows.sample(n)
         except ValueError:
             # If n is too high, return all rows
-            new_rows = data[data["label"] == glitch]
+            new_rows = glitch_rows
 
         # Append new rows to output data frame
         output = output.append(new_rows)
