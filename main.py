@@ -7,6 +7,8 @@ import pandas as pd
 from analysis import pca
 from analysis import tsne
 from plot import pcaViz
+from plot import tsneViz
+from plot import pairplot
 
 #DATA PREPARATION
 #define the data filename
@@ -45,4 +47,13 @@ pcaViz.viz(mainDf)
 
 #T-TSNE
 #visualizes the dataset using the t-sne results
+#keep commented out if you haven't uncommented the t-sne section
+#tsneViz.viz(mainDf)
+
+#Pairplots
+#creates a pairplot for the specified lists of glitch(es) and features
+glitches = ['Extremely_Loud']
+features = ['centralFreq', 'duration', 'Q-value']
+pairplot.pPlot(mainDf, glitches, features)
+
 print("Done!")
