@@ -1,14 +1,12 @@
 #IMPORTS
 #import external packages
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import seaborn as sns
 import pandas as pd
 
 #import local modules
 from analysis import pca
 from analysis import tsne
+from plot import pcaViz
 
 #DATA PREPARATION
 #define the data filename
@@ -33,9 +31,18 @@ pcaDf = mainDf.drop(columns='label')
 pca.PCA3(pcaDf, mainDf)
 
 #T-SNE
+#TODO: update t-sne to run on all features
+#TODO: look into optimization
 #Very computationally intensive! Likely will not run on average laptop!
 #runs T-SNE on the top three principal components and returns the results as columns of mainDf
 #keep the following line commented out to not run tsne
 #tsne.tsnePCA3(mainDf)
 
+#DATA VISUALIZATION
+#PCA
+#visualizes the datatset using the top two principal components
+pcaViz.viz(mainDf)
+
+#T-TSNE
+#visualizes the dataset using the t-sne results
 print("Done!")
