@@ -9,7 +9,6 @@ from analysis import tsne
 from plot import pcaViz
 from plot import tsneViz
 from plot import pairplot
-from plot import violin
 
 #DATA PREPARATION
 #define the data filename
@@ -31,7 +30,7 @@ pcaDf = mainDf.drop(columns='label')
 #DATA ANALYSIS
 #PCA
 #find the top three principal components and return them as columns of mainDf
-#pca.PCA3(pcaDf, mainDf)
+pca.PCA3(pcaDf, mainDf)
 
 #T-SNE
 #TODO: update t-sne to run on all features
@@ -44,7 +43,7 @@ pcaDf = mainDf.drop(columns='label')
 #DATA VISUALIZATION
 #PCA
 #visualizes the datatset using the top two principal components
-#pcaViz.viz(mainDf)
+pcaViz.viz(mainDf)
 
 #T-TSNE
 #visualizes the dataset using the t-sne results
