@@ -9,6 +9,7 @@ from analysis import tsne
 from plot import pcaViz
 from plot import tsneViz
 from plot import pairplot
+from plot import violin
 
 #DATA PREPARATION
 #define the data filename
@@ -30,7 +31,7 @@ pcaDf = mainDf.drop(columns='label')
 #DATA ANALYSIS
 #PCA
 #find the top three principal components and return them as columns of mainDf
-pca.PCA3(pcaDf, mainDf)
+#pca.PCA3(pcaDf, mainDf)
 
 #T-SNE
 #TODO: update t-sne to run on all features
@@ -43,7 +44,7 @@ pca.PCA3(pcaDf, mainDf)
 #DATA VISUALIZATION
 #PCA
 #visualizes the datatset using the top two principal components
-pcaViz.viz(mainDf)
+#pcaViz.viz(mainDf)
 
 #T-TSNE
 #visualizes the dataset using the t-sne results
@@ -51,9 +52,15 @@ pcaViz.viz(mainDf)
 #tsneViz.viz(mainDf)
 
 #Pairplots
+#TODO: Include functionality for an easier way to do an aggregate pairplot
 #creates a pairplot for the specified lists of glitch(es) and features
-glitches = ['Extremely_Loud']
+glitches = ['Extremely_Loud','Blip']
 features = ['centralFreq', 'duration', 'Q-value']
 pairplot.pPlot(mainDf, glitches, features)
+
+#Violin Plots
+#TODO: Implement violin plots
+#TODO: Include functionality for an easier way to do an aggregate violin plot
+#creates violin plots to visualize feature distriubtion in a more ~novel~ way
 
 print("Done!")
