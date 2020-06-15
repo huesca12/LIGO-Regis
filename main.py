@@ -9,20 +9,24 @@ from analysis import tsne
 from plot import pcaViz
 from plot import tsneViz
 from plot import pairplot
+from simplify import simplify
 
 #DATA PREPARATION
 #define the data filename
 filename = 'data/gspy_o3a.csv' #your file here with a .csv ending
 
-#read the csv file into a dataframe
-rawDf = pd.read_csv(filename)
+query = input('Would you like to run the simplify data preparation pipeline? (y/n)')
 
-#define the list of columns that we want to drop
-#note the inclusion of peakFreq and amplitude (original TSNE plot we have did not account for these)
-dropList = ['chisq','chisqDof','confidence','GPStime','ifo','imgUrl','id']
-
-#drop the columns we don't need
-mainDf = rawDf.drop(columns=dropList)
+if query == 'y':
+  mainDf = simplify.simplify_csv(filename)
+else:
+  #read the csv file into a dataframe
+  rawDf = pd.read_csv(filename)
+  #define the list of columns that we want to drop
+  #note the inclusion of peakFreq and amplitude (original TSNE plot we have did not account for these)
+  dropList = ['chisq','chisqDof','confidence','GPStime','ifo','imgUrl','id']
+  #drop the columns we don't need
+  mainDf = rawDf.drop(columns=dropList)
 
 #features only!
 pcaDf = mainDf.drop(columns='label')
