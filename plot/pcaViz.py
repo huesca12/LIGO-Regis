@@ -1,7 +1,10 @@
+# IMPORTS
+# import external packages
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-plt.figure(figsize=(16,10))
+plt.figure(figsize=(16, 10))
+
 
 def viz(mainDf):
     sns.scatterplot(
