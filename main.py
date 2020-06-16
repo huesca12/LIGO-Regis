@@ -15,18 +15,19 @@ from simplify import simplify
 #define the data filename
 filename = 'data/gspy_o3a.csv' #your file here with a .csv ending
 
-query = input('Would you like to run the simplify data preparation pipeline? (y/n)')
+query = input('Would you like to run the simplify data preparation pipeline? (y/n)\n')
 
 if query == 'y':
-  mainDf = simplify.simplify_csv(filename)
+    query = input('Please enter the desired sample size\n')
+    mainDf = simplify.simplify_csv(filename, int(query))
 else:
-  #read the csv file into a dataframe
-  rawDf = pd.read_csv(filename)
-  #define the list of columns that we want to drop
-  #note the inclusion of peakFreq and amplitude (original TSNE plot we have did not account for these)
-  dropList = ['chisq','chisqDof','confidence','GPStime','ifo','imgUrl','id']
-  #drop the columns we don't need
-  mainDf = rawDf.drop(columns=dropList)
+    #read the csv file into a dataframe
+    rawDf = pd.read_csv(filename)
+    #define the list of columns that we want to drop
+    #note the inclusion of peakFreq and amplitude (original TSNE plot we have did not account for these)
+    dropList = ['chisq','chisqDof','confidence','GPStime','ifo','imgUrl','id']
+    #drop the columns we don't need
+    mainDf = rawDf.drop(columns=dropList)
 
 #features only!
 pcaDf = mainDf.drop(columns='label')
