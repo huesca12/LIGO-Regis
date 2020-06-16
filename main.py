@@ -15,11 +15,16 @@ from simplify import simplify
 #define the data filename
 filename = 'data/gspy_o3a.csv' #your file here with a .csv ending
 
+#ask if the user wants to run the simplify pipeline
 query = input('Would you like to run the simplify data preparation pipeline? (y/n)\n')
 
+#test if the user wants to run simplify
 if query == 'y':
+    #if so, also ask for the desired sample number
     query = input('Please enter the desired sample size\n')
+    #get the df output from simplify and store it in mainDf
     mainDf = simplify.simplify_csv(filename, int(query))
+#data preparation if simplify pipeline is not run
 else:
     #read the csv file into a dataframe
     rawDf = pd.read_csv(filename)
