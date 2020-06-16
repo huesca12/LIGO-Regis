@@ -10,7 +10,7 @@ def simplify_csv(csv_in: str, n: int, csv_out: str = "csv_out.csv", save_to_file
 
     # Make sure input variables are correct
     assert csv_in.split(".")[-1] == "csv", "csv_in must be a path to a CSV file"
-    assert csv_out.split(".")[-1] == "csv", "csv_in must be a path to a CSV file"
+    assert csv_out.split(".")[-1] == "csv", "csv_out must be a path to a CSV file"
     assert os.path.exists(csv_in), "CSV file path does not exist"
 
     # Load CSV into panda data frame, dropping unnecessary columns
