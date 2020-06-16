@@ -67,9 +67,4 @@ glitches = ['Extremely_Loud','Blip']
 features = ['centralFreq', 'duration', 'Q-value']
 pairplot.pPlot(mainDf, glitches, features)
 
-#Violin Plots
-#TODO: Implement violin plots
-#TODO: Include functionality for an easier way to do an aggregate violin plot
-#creates violin plots to visualize feature distriubtion in a more ~novel~ way
-
 print("Done!")
