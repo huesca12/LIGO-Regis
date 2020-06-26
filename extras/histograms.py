@@ -24,14 +24,14 @@ for dataset in datasets:
 
     for site in sites:
 
-        mainDf = mainDf[mainDf["ifo"] == site]
+        siteDf = mainDf[mainDf["ifo"] == site]
         site_dir = f"{dataset_dir}/{site}"
         os.mkdir(site_dir)
 
         for glitch_type in glitch_types:
 
-            glitch = mainDf["label"] == glitch_type
-            histDf = mainDf[glitch]
+            glitch = siteDf["label"] == glitch_type
+            histDf = siteDf[glitch]
             glitch_type_dir = f"{site_dir}/{glitch_type}"
             os.mkdir(glitch_type_dir)
 
