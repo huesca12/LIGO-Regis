@@ -44,3 +44,6 @@ model = RandomForestClassifier()
 
 # fit our model
 model.fit(X, y)
+
+# get our model score
+print(model.score(X, y))
