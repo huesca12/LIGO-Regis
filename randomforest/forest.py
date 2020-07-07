@@ -66,7 +66,7 @@ clf.fit(X_train, y_train)
 # visualize tree
 fn=list(X.columns.values)
 cn=list(y.unique())
-fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (4,4), dpi=300)
+fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (10,10), dpi=300)
 tree.plot_tree(clf,
                feature_names = fn,
                class_names=cn,
