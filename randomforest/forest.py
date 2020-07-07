@@ -1,8 +1,12 @@
 # IMPORTS
 # import external packages
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from sklearn import tree
 
 # DATA PREPARATION
 # ask if the user wants to use gspy_o3a or gspy_o3b
@@ -39,11 +43,32 @@ y = mainDf["label"]
 # features only!
 X = mainDf.drop(columns="label")
 
+# honest training
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+print("Training random forest model!")
+
 # get our model
 model = RandomForestClassifier()
 
 # fit our model
-model.fit(X, y)
+model.fit(X_train, y_train)
 
-# get our model score
-print(model.score(X, y))
+# get our out-of-bag estimator model score
+print("The OOB-estimated traning set score is: {:f}".format(model.score(X, y)))
+
+print("Training single decision tree!")
+
+clf = DecisionTreeClassifier()
+
+clf.fit(X_train, y_train)
+
+# visualize tree
+fn=list(X.columns.values)
+cn=list(y.unique())
+fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (4,4), dpi=300)
+tree.plot_tree(clf,
+               feature_names = fn,
+               class_names=cn,
+               filled = True);
+fig.savefig('tree.png')
