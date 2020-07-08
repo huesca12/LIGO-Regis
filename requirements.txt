@@ -1,0 +1,11 @@
+certifi==2020.6.20
+joblib @ file:///tmp/build/80754af9/joblib_1594236160679/work
+mkl-fft==1.1.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+numpy==1.18.5
+scikit-learn @ file:///C:/ci/scikit-learn_1592853510272/work
+scipy @ file:///C:/ci/scipy_1592916963468/work
+six==1.15.0
+threadpoolctl @ file:///tmp/tmp9twdgx9k/threadpoolctl-2.1.0-py3-none-any.whl
+wincertstore==0.2
