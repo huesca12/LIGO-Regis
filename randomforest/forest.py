@@ -1,12 +1,13 @@
 # IMPORTS
 # import external packages
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
-from sklearn import tree
+
+# import local module
+import viz
 
 # DATA PREPARATION
 # ask if the user wants to use gspy_o3a or gspy_o3b
@@ -64,13 +65,6 @@ clf = DecisionTreeClassifier()
 clf.fit(X_train, y_train)
 
 # visualize tree
-fn=list(X.columns.values)
-cn=list(y.unique())
-fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (50,15), dpi=300)
-tree.plot_tree(clf,
-               feature_names = fn,
-               class_names=cn,
-               filled = True);
-fig.savefig('tree.png')
+viz.treeViz(X, y, clf)
 
 print("The OOB-estimated traning set score is: {:f}".format(clf.score(X, y)))
