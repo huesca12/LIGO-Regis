@@ -4,6 +4,9 @@ mkl-fft==1.1.0
 mkl-random==1.1.1
 mkl-service==2.3.0
 numpy==1.18.5
+pandas @ file:///C:/ci/pandas_1592833613419/work
+python-dateutil==2.8.1
+pytz==2020.1
 scikit-learn @ file:///C:/ci/scikit-learn_1592853510272/work
 scipy @ file:///C:/ci/scipy_1592916963468/work
 six==1.15.0
