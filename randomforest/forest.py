@@ -68,7 +68,7 @@ model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
 # get our out-of-bag estimator model score
-print("The OOB-estimated traning set score is: {:f}".format(model.score(X, y)))
+print("The OOB-estimated traning set score is: {:f}".format(model.score(X_test, y_test)))
 
 print("Training single decision tree!")
 
@@ -76,7 +76,7 @@ clf = DecisionTreeClassifier()
 
 clf.fit(X_train, y_train)
 
-print("The OOB-estimated traning set score is: {:f}".format(clf.score(X, y)))
+print("The OOB-estimated traning set score is: {:f}".format(clf.score(X_test, y_test)))
 
 # visualize tree
 # ask if the user wants to run accuracy check on test set
