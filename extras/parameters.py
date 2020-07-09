@@ -6,9 +6,9 @@ import pandas as pd
 
 DATA = "o3a"
 # "o3a", "o3b", "both"
-SITE = "L1"
+SITE = "H1"
 # "H1", "L1", "both"
-GLITCH = "Scattered_Light"
+GLITCH = ""
 # "Extremely_Loud", "Scratchy", "Power_Line", "Scattered_Light",
 # "Koi_Fish", "Whistle", "Low_Frequency_Burst", "Blip",
 # "Repeating_Blips", "Wandering_Line", "Violin_Mode",
@@ -23,8 +23,8 @@ HIGH_CONFIDENCE = False
 
 # If you do not want a minimum, use 0
 # If you do not want a maximum, use inf
-MIN_peakFreq = 10
-MAX_peakFreq = 50
+MIN_peakFreq = 0
+MAX_peakFreq = inf
 MIN_snr = 0
 MAX_snr = inf
 MIN_amplitude = 0
@@ -35,8 +35,8 @@ MIN_duration = 0
 MAX_duration = inf
 MIN_bandwidth = 0
 MAX_bandwidth = inf
-MIN_Qvalue = 44
-MAX_Qvalue = 46
+MIN_Qvalue = 0
+MAX_Qvalue = inf
 
 ####################
 
