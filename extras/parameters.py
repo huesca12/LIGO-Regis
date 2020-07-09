@@ -8,7 +8,7 @@ DATA = "o3a"
 # "o3a", "o3b", "both"
 SITE = "H1"
 # "H1", "L1", "both"
-GLITCH = "Extremely_Loud"
+GLITCH = ""
 # "Extremely_Loud", "Scratchy", "Power_Line", "Scattered_Light",
 # "Koi_Fish", "Whistle", "Low_Frequency_Burst", "Blip",
 # "Repeating_Blips", "Wandering_Line", "Violin_Mode",
@@ -19,12 +19,13 @@ PLOT = False
 # True, False
 
 HIGH_CONFIDENCE = False
+# True, False
 
 # If you do not want a minimum, use 0
 # If you do not want a maximum, use inf
 MIN_peakFreq = 0
 MAX_peakFreq = inf
-MIN_snr = 250
+MIN_snr = 0
 MAX_snr = inf
 MIN_amplitude = 0
 MAX_amplitude = inf
