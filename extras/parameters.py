@@ -56,9 +56,9 @@ def main():
         if DATA == "both" else \
         pd.read_csv(f"data/gspy_{DATA}.csv")
     main_df = main_df if SITE == "both" else main_df[main_df["ifo"] == SITE]
-    main_df = main_df[main_df["confidence"] >= 0.9] if HIGH_CONFIDENCE else main_df
 
     param_df = main_df
+    param_df = param_df[param_df["confidence"] >= 0.9] if HIGH_CONFIDENCE else param_df
     for key, val in parameters.items():
         # key -> parameter | val[0] -> min | val[1] -> max
         param_df = param_df[(param_df[key] > val[0]) & (param_df[key] < val[1])]
