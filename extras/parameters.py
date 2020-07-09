@@ -85,7 +85,7 @@ def main():
     false_positive = len(param_df) - true_positive
     false_negative = len(main_df[main_df["label"] == GLITCH]) - true_positive
     true_negative = len(main_df[main_df["label"] != GLITCH]) - len(param_df[param_df["label"] != GLITCH])
-    true_positive_rate = true_positive / (true_positive + false_positive)
+    true_positive_rate = true_positive / (true_positive + false_negative)
     true_negative_rate = true_negative / (true_negative + false_positive)
     false_alarm_rate = false_positive / (false_positive + true_negative)
     total_glitch = len(main_df[main_df["label"] == GLITCH])
