@@ -6,9 +6,9 @@ import pandas as pd
 
 DATA = "o3a"
 # "o3a", "o3b", "both"
-SITE = "H1"
+SITE = "L1"
 # "H1", "L1", "both"
-GLITCH = ""
+GLITCH = "Scattered_Light"
 # "Extremely_Loud", "Scratchy", "Power_Line", "Scattered_Light",
 # "Koi_Fish", "Whistle", "Low_Frequency_Burst", "Blip",
 # "Repeating_Blips", "Wandering_Line", "Violin_Mode",
@@ -23,8 +23,8 @@ HIGH_CONFIDENCE = False
 
 # If you do not want a minimum, use 0
 # If you do not want a maximum, use inf
-MIN_peakFreq = 0
-MAX_peakFreq = inf
+MIN_peakFreq = 10
+MAX_peakFreq = 50
 MIN_snr = 0
 MAX_snr = inf
 MIN_amplitude = 0
@@ -35,8 +35,8 @@ MIN_duration = 0
 MAX_duration = inf
 MIN_bandwidth = 0
 MAX_bandwidth = inf
-MIN_Qvalue = 0
-MAX_Qvalue = inf
+MIN_Qvalue = 44
+MAX_Qvalue = 46
 
 ####################
 
@@ -85,7 +85,7 @@ def main():
     false_positive = len(param_df) - true_positive
     false_negative = len(main_df[main_df["label"] == GLITCH]) - true_positive
     true_negative = len(main_df[main_df["label"] != GLITCH]) - len(param_df[param_df["label"] != GLITCH])
-    true_positive_rate = true_positive / (true_positive + false_negative)
+    true_positive_rate = true_positive / (true_positive + false_positive)
     true_negative_rate = true_negative / (true_negative + false_positive)
     false_alarm_rate = false_positive / (false_positive + true_negative)
 
