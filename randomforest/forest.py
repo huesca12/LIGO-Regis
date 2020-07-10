@@ -10,21 +10,15 @@ from sklearn.model_selection import train_test_split
 import viz
 
 # DATA PREPARATION
-# ask if the user wants to use gspy_o3a or gspy_o3b
-query = input("Would you like to analyze the o3a or o3b data set? (a/b): ")
-# make sure the user inputted either "a" or "b"
-assert query == "a" or query == "b", "You must input either \"a\" or \"b\""
-# define file path to particular dataset
-filename = f"../data/gspy_o3{query}.csv"
-
-if query == "a":
-    oppquery = "b"
-else:
-    oppquery = "a"
+filename = f"data/gspy_o3a.csv"
 
 # read the csv file into a dataframe
 rawDf = pd.read_csv(filename)
-oppDf = pd.read_csv(f"../data/gspy_o3{oppquery}.csv")
+oppDf = pd.read_csv(f"data/gspy_o3b.csv")
+
+# select H1 or L1
+rawDf = rawDf[rawDf["ifo"] == "H1"]
+oppDf = oppDf[oppDf["ifo"] == "H1"]
 
 # define the list of columns that we want to drop
 # note the inclusion of peakFreq and amplitude (original TSNE plot we have did not account for these)
@@ -57,7 +51,7 @@ X = mainDf.drop(columns="label")
 X_opp = oppDf.drop(columns="label")
 
 # honest training
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.9, random_state=0)
 
 print("Training random forest model!")
 
@@ -68,7 +62,7 @@ model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
 # get our out-of-bag estimator model score
-print("The traning set score is: {:f}".format(model.score(X_test, y_test)))
+print("The OOB-estimated traning set score is: {:f}".format(model.score(X_test, y_test)))
 
 print("Training single decision tree!")
 
@@ -76,7 +70,7 @@ clf = DecisionTreeClassifier()
 
 clf.fit(X_train, y_train)
 
-print("The traning set score is: {:f}".format(clf.score(X_test, y_test)))
+print("The OOB-estimated traning set score is: {:f}".format(clf.score(X_test, y_test)))
 
 # visualize tree
 # ask if the user wants to run accuracy check on test set
@@ -88,5 +82,48 @@ if query == "y":
 # ask if the user wants to run accuracy check on test set
 query = input("Would you like to check both models' accuracies on the other set? (y/n): ")
 if query == "y":
-    print("The opposite set score for the random forest is: {:f}".format(model.score(X_opp, y_opp)))
-    print("The opposite set score for the decision tree is: {:f}".format(clf.score(X_opp, y_opp)))
+    print("The OOB-estimated opposite set score for the random forest is: {:f}".format(model.score(X_opp, y_opp)))
+    print("The OOB-estimated opposite set score for the decision tree is: {:f}".format(clf.score(X_opp, y_opp)))
+
+# add new rows to dataframe
+mainDf["Prediction"] = (model.predict(X))
+
+def accuracy(row):
+    if row['label'] == row['Prediction']:
+        val = "Correct"
+    else:
+        val = "Incorrect"
+    return val
+
+def statistic(row):
+    if (row['label'] == "Scattered_Light") & (row['Prediction'] == "Scattered_Light"):
+        val = "True Positive"
+    elif (row['label'] != "Scattered_Light") & (row['Prediction'] == "Scattered_Light"):
+        val = "False Positive"
+    elif (row['label'] != "Scattered_Light") & (row['Prediction'] != "Scattered_Light"):
+        val = "True Negative"
+    elif (row['label'] == "Scattered_Light") & (row['Prediction'] != "Scattered_Light"):
+        val = "False Negative"
+    else:
+        val = "Error"
+    return val
+
+mainDf["Accuracy"] = mainDf.apply(accuracy, axis=1)
+mainDf["Statistic"] = mainDf.apply(statistic, axis=1)
+
+# calculate percentages
+accuracy = (len(mainDf[mainDf['Accuracy'] == 'Correct']))/(len(mainDf))
+tpr = (len(mainDf[mainDf['Statistic'] == 'True Positive']))/((len(mainDf[mainDf['Statistic'] == 'True Positive'])) + (len(mainDf[mainDf['Statistic'] == 'False Negative'])))
+tnr = (len(mainDf[mainDf['Statistic'] == 'True Negative']))/((len(mainDf[mainDf['Statistic'] == 'True Negative'])) + (len(mainDf[mainDf['Statistic'] == 'False Positive'])))
+far = (len(mainDf[mainDf['Statistic'] == 'False Positive']))/((len(mainDf[mainDf['Statistic'] == 'False Positive'])) + (len(mainDf[mainDf['Statistic'] == 'True Negative'])))
+share = (len(mainDf[mainDf['Statistic'] == 'True Positive']))/((len(mainDf[mainDf['Statistic'] == 'True Positive'])) + (len(mainDf[mainDf['Statistic'] == 'False Positive'])))
+
+print("Accuracy: " + str(accuracy))
+print("TPR/Recovery: " + str(tpr))
+print("TNR: " + str(tnr))
+print("FAR: " + str(far))
+print("Share: " + str(share))
+
+# create csv file
+mainDf.to_csv('resultsa.csv')
+
