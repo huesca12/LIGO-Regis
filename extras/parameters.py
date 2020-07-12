@@ -81,17 +81,21 @@ def main():
           f"{'–' * 50}"
           )
 
+    total_satisfy = len(param_df)
+    total_dissatisfy = len(main_df) - total_satisfy
     true_positive = len(param_df[param_df["label"] == GLITCH])
-    false_positive = len(param_df) - true_positive
+    false_positive = total_satisfy - true_positive
     false_negative = len(main_df[main_df["label"] == GLITCH]) - true_positive
     true_negative = len(main_df[main_df["label"] != GLITCH]) - len(param_df[param_df["label"] != GLITCH])
     true_positive_rate = true_positive / (true_positive + false_negative)
     true_negative_rate = true_negative / (true_negative + false_positive)
     false_alarm_rate = false_positive / (false_positive + true_negative)
-    total_glitch = len(main_df[main_df["label"] == GLITCH])
-    total_non_glitch = len(main_df[main_df["label"] != GLITCH])
+    # total_glitch = len(main_df[main_df["label"] == GLITCH])
+    # total_non_glitch = len(main_df[main_df["label"] != GLITCH])
 
     print(
+        f"Total Satisfy Conditions: {total_satisfy}\n"
+        f"Total Do Not Satisfy Conditions: {total_dissatisfy}\n"
         f"True Positive: {true_positive}\n"
         f"False Positive: {false_positive}\n"
         f"False Negative: {false_negative}\n"
@@ -99,8 +103,8 @@ def main():
         f"True Positive Rate: {true_positive_rate} ({true_positive_rate * 100} %)\n"
         f"True Negative Rate: {true_negative_rate} ({true_negative_rate * 100} %)\n"
         f"False Alarm Rate: {false_alarm_rate} ({false_alarm_rate * 100} %)\n"
-        f"Total {GLITCH}: {total_glitch}\n"
-        f"Total non-{GLITCH}: {total_non_glitch}\n"
+        # f"Total {GLITCH}: {total_glitch}\n"
+        # f"Total non-{GLITCH}: {total_non_glitch}\n"
         f"{'–' * 50}"
     )
 
